@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+  <a class="navbar-brand" [routerLink]="['/']" >ForeCast</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link"  [routerLink]="['/']">List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['employee']" >Other</a>
+      </li>
+    </ul>
+    <div *ngIf="authManager.IsAuthenticated">
+        <div *ngIf="authManager.IsAuthenticated">
+            <div class="btn-group">
+              <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                <button class="btn btn-outline-warning" ngbDropdownToggle>Unread messages
+                    <span class="badge badge-light">9</span>
+                </button>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                  <button class="dropdown-item">One</button>
+                  <button class="dropdown-item">Two</button>
+                  <button class="dropdown-item">Four!</button>
+                </div>
+              </div>
+            </div>
+            <span *ngIf="authManager.IsAuthenticated" style="margin-right: 10px; color:white">Hello {{authManager.Identity.UserName}}</span>
+          </div>
+       </div>
+    <div class="form-inline my-2 my-lg-0">
+      <button *ngIf="authManager.IsAuthenticated==false" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['auth-page']">Sign In</button>
+      <button *ngIf="authManager.IsAuthenticated" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['auth-page']" (click)="SignOut()">Sign Out</button>
+    </div>
+
+  </div>
+  
+</nav>
+  <router-outlet></router-outlet>
+

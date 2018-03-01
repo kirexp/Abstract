@@ -1,0 +1,38 @@
+ <div class="login-card">
+    <h1>Sign Up</h1><br>
+  <form [formGroup]="myForm" (ngSubmit)="submit(myForm)">
+    <input type="text"  formControlName="userName" name="user" placeholder="Username">
+    <div class="error-text"
+    *ngIf="myForm.controls['userName'].invalid && myForm.controls['userName'].touched">
+    Username is required
+  </div>
+  <input type="text"  formControlName="email" name="email" placeholder="Email">
+  <div class="error-text"
+  *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">
+  <span *ngIf="myForm.get('email').hasError('email')">Email be must correct type</span>
+   <br>
+  <span *ngIf="myForm.get('email').hasError('required')">Email is required</span>
+</div>
+    <input type="password"  formControlName="password" name="pass" placeholder="Password">
+    <div class="error-text"
+    *ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">
+    Incorrect pasword
+  </div>
+    <input type="password"  formControlName="confirmPassword" name="pass" placeholder="Confirm Password">
+    <div class="error-text"
+    *ngIf="myForm.controls['confirmPassword'].invalid && myForm.controls['confirmPassword'].touched">
+    Incorrect pasword
+  </div>
+
+    <div *ngIf="authError!=null && authError.length>0" class="error-text">
+        {{authError}}
+    </div>
+    <input type="submit" name="login" class="login login-submit" value="Register">
+  </form>
+    
+  <div class="login-help">
+    <a href="#">Register</a> • <a href="#">Forgot Password</a>
+  </div>
+  </div>
+  
+  
