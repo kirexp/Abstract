@@ -16,17 +16,27 @@ export class User{
    constructor(userName:string) {
        this.UserName=userName;
    }
+   static CreateInstance(userName,role,type,email):User{
+    let user =new User(userName);
+    user.role=role,
+    user.Type=type,
+    user.Email=email;
+    return user;
+   }
+
 }
 export class AuthintithicationResult{
     IsSuccess:boolean;
     Identity:User;
     AuthintithicationError:string;
+    Token:string;
     /**
      *
      */
-    constructor(result:boolean,identity:User) {
+    constructor(result:boolean,identity:User,token) {
         this.Identity=identity;
         this.IsSuccess=result;
+        this.Token=token;
     }
 }
 @Injectable()
@@ -34,6 +44,8 @@ export class AuthVariables{
     UserName:string; 
     JWT:string;
     ExpirationDateTime:string;
+    Email:string;
+    Type:string;
     /**
      *
      */

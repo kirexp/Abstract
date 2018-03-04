@@ -21,10 +21,12 @@ export class AuthManager{
     }
     Authintithicate(userName:string,password:string):Observable<AuthintithicationResult>{
         let result = this.auth.Authintithicate(userName,password);
+        debugger;
         return result.map((result)=>{
             if(result.IsSuccess){
                 this.IsAuthenticated=true;
                 this.Identity=result.Identity;
+                this.JwtToken=result.Token;
             }
             return result;
         });
@@ -33,6 +35,7 @@ export class AuthManager{
         let result = this.auth.Verify();
         if(result.IsSuccess){
             this.Identity.UserName=result.Identity.UserName;
+            this.JwtToken=result.Token;
         }
         return result.IsSuccess;
     }

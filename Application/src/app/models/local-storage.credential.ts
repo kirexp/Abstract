@@ -22,9 +22,9 @@ export class LocalStorageSession implements ISignInManager{
           if(response.state==1){
             let authResult = response.data as AuthResult;
              this.SetCredentials(authResult.accessToken);
-             return new AuthintithicationResult(true,new User(userName));
+             return new AuthintithicationResult(true,this.CreateUser(),authResult.accessToken);
             }else{
-                let authRes=new AuthintithicationResult(false,new User(''));
+                let authRes=new AuthintithicationResult(false,new User(''),null);
                 authRes.AuthintithicationError=response.errorText;
                 return authRes;
             }
@@ -39,6 +39,8 @@ export class LocalStorageSession implements ISignInManager{
                 jwtPayload.role.map(x=>localStorage.setItem(x,'true'));
             }
            localStorage.setItem(this.constants.JWT,jwt);
+           localStorage.setItem(this.constants.Email,jwtPayload.Email);
+           localStorage.setItem(this.constants.Type,jwtPayload.Type);
            localStorage.setItem(this.constants.UserName,jwtPayload.unique_name);
            localStorage.setItem(this.constants.ExpirationDateTime,jwtPayload.exp.toString());
         }catch(ex){
@@ -47,10 +49,11 @@ export class LocalStorageSession implements ISignInManager{
     }
     Verify(): AuthintithicationResult {
         if(localStorage.getItem(this.constants.UserName)!=null&&!this.IsExpired()){
-            return new AuthintithicationResult(true,new User(localStorage.getItem(this.constants.UserName)));
+            let jwt=localStorage.getItem(this.constants.JWT)
+            return new AuthintithicationResult(true,this.CreateUser(),jwt);
         }else{
             this.ClearStorage();
-            return new AuthintithicationResult(false,new User(''));
+            return new AuthintithicationResult(false,new User(''),null);
         }
     }
     ClearStorage() {
@@ -62,12 +65,16 @@ export class LocalStorageSession implements ISignInManager{
         let tokenExpirationDate =Date.parse(localStorage.getItem(this.constants.ExpirationDateTime));
         return Date.now()>tokenExpirationDate;
     }
-    
-    
+    private CreateUser():User{
+        let user =new User(localStorage.getItem(this.constants.UserName));
+        user.Type=localStorage.getItem(this.constants.Type),
+        user.Email=localStorage.getItem(this.constants.Email);
+        return user;
+    }
     LogOut(): AuthintithicationResult {
         if(localStorage.getItem(this.constants.UserName)!=null)
         localStorage.removeItem(this.constants.UserName);
-        return new AuthintithicationResult(true,new User(''));
+        return new AuthintithicationResult(true,new User(''),null);
     }
     
 }

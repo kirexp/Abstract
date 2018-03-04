@@ -23,37 +23,26 @@ namespace DAL {
                 var administrationPanelView = new Permission {
                     Name = Constants.Permission.AdministrationPanelView,
                     NameRu = "Панели администрирования. Просмотр",
-                    NameKz = "Панели администрирования. Просмотр",
                 };
                 permissionsRepository.Insert(administrationPanelView);
                 var editEmployeePermission = new Permission {
                     Name = Constants.Permission.AdministrationPanelEmployeeEdit,
                     NameRu = "Пользователи. Создание/редактирование",
-                    NameKz = "Пользователи. Создание/редактирование",
                 };
                 permissionsRepository.Insert(editEmployeePermission);
                 var roleViewPermission = new Permission {
                     Name = Constants.Permission.AdministrationRoleView,
                     NameRu = "Роли. Просмотр",
-                    NameKz = "Роли. Просмотр",
                 };
                 permissionsRepository.Insert(roleViewPermission);
                 var roleEditPerm = new Permission {
                     Name = Constants.Permission.AdministrationRoleEdit,
                     NameRu = "Роли. Создание/редактирование",
-                    NameKz = "Роли. Создание/редактирование",
                 };
                 permissionsRepository.Insert(roleEditPerm);
-                var privilegedView = new Permission {
-                    Name = Constants.Permission.PrivilegedView,
-                    NameRu = "База данных льготников. Просмотр",
-                    NameKz = "База данных льготников. Просмотр",
-                };
-                permissionsRepository.Insert(privilegedView);
                 var statisticsView = new Permission {
                     Name = Constants.Permission.StatisticsView,
                     NameRu = "Просмотр статистики",
-                    NameKz = "Просмотр статистики",
                 };
                 permissionsRepository.Insert(statisticsView);
                 var adminRole = new Role {
@@ -64,7 +53,6 @@ namespace DAL {
                         editEmployeePermission,
                         roleViewPermission,
                         roleEditPerm,
-                        privilegedView,
                         statisticsView,
                     }
                 };
